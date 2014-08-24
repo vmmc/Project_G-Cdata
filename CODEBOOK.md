@@ -1,4 +1,4 @@
-There are two main variables: DF and tidyDF.
+All of the original variables were compressed into two: DF and tidyDF.
 
 DF is a data frame in which the first column indicates the subject that realized the activity indicated on the second column.
 The rest of the features are normalized and bounded within [-1,1] and represent measurements on the mean and standard deviation for each measurement obtained from an accelerometer and gyroscope, which capture 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. 
@@ -129,7 +129,7 @@ We can see a summary of DF:
 Then, there is tidyDF which is a tidier version of DF.
 This one contains an average of the measurements per person and activity.
 We can see it's structure:
-
+```{r, echo=FALSE}
 'data.frame':	180 obs. of  79 variables:
  $ tBodyAcc_mean_X              : num  0.277 0.276 0.276 0.279 0.278 ...
  $ tBodyAcc_mean_Y              : num  -0.0174 -0.0186 -0.0172 -0.0148 -0.0173 ...
@@ -210,3 +210,4 @@ We can see it's structure:
  $ fBodyBodyGyroJerkMag_mean    : num  -0.319 -0.583 -0.608 -0.724 -0.548 ...
  $ fBodyBodyGyroJerkMag_std     : num  -0.382 -0.558 -0.549 -0.758 -0.456 ...
  $ fBodyBodyGyroJerkMag_meanFreq: num  0.1907 0.1263 0.0458 0.2654 0.0527 ...
+```
