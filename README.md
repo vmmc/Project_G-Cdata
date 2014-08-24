@@ -12,14 +12,14 @@ www.smartlab.ws
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been aggregated into a dataset with means of data only.
 
-#I proceed to explain the transformations I've done to the data:
+##I proceed to explain the transformations I've done to the data:
 
-## Remember to set your own working directory
+### Remember to set your own working directory
 ```{r, echo=FALSE}
 setwd("UCI HAR Dataset") 
 ```
 
-## Loading all the files to use
+### Loading all the files to use
 ```{r, echo=FALSE}
 features        <- read.table("./features.txt")
 activity_labels <- read.table("./activity_labels.txt")
@@ -33,41 +33,41 @@ X_test          <- read.table("./test/X_test.txt")
 y_test          <- read.table("./test/y_test.txt")
 ```
 
-## Merge test and train sets
+### Merge test and train sets
 ```{r, echo=FALSE}
 subject         <- rbind(subject_train, subject_test)
 X               <- rbind(X_train, X_test)
 y               <- rbind(y_train, y_test)
 ```
 
-## Assign the features to the column names
+### Assign the features to the column names
 ```{r, echo=FALSE}
 colnames(X) <- features[,2]
 ```
 
-## Keep only the variables with "mean" or "std" on them
+### Keep only the variables with "mean" or "std" on them
 ```{r, echo=FALSE}
 X <- X[, grep("mean|std", colnames(X))]
 ```
 
-## Making the column names tidier
+### Making the column names tidier
 ```{r, echo=FALSE}
 colnames(X) <- gsub("()", "", colnames(X), fixed=TRUE)
 colnames(X) <- gsub("-", "_", colnames(X), fixed=TRUE)
 ```
 
-## Using descriptive activity names by changing it to a factor
+### Using descriptive activity names by changing it to a factor
 ```{r, echo=FALSE}
 y$V1 <- as.factor(y$V1)
 attributes(y$V1)$levels <- as.character(activity_labels$V2)
 ```
 
-## Convert the subjects to a factor because it's more representative
+### Convert the subjects to a factor because it's more representative
 ```{r, echo=FALSE}
 subject$V1 <- as.factor(subject$V1)
 ```
 
-## Combining everything into one data set
+### Combining everything into one final data set
 ```{r, echo=FALSE}
 DF <- cbind(subject=subject$V1, activity=y$V1, X)
 ```
@@ -80,7 +80,7 @@ tidyDF <- sapply(split(X, list(DF$subject,DF$activity)), colMeans)
 tidyDF <- as.data.frame(t(tidyDF))
 ```
 
-## Save the tidy data set to a file
+### Save the tidy data set to a file
 ```{r, echo=FALSE}
 write.table(tidyDF, file="tidyData.txt", row.names=FALSE)
 ```
